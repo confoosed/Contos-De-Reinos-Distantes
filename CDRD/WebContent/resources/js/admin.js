@@ -72,6 +72,9 @@ $( function() {
     if(compedit==0){
         if($("textarea[name=txacompnotificacao]").val()!=""){
             conf = confirm("Você tem certeza que deseja postar uma notificação?");
+            if(conf==true){
+            	insereNotificacao();
+            }
         }else{
             alert("Escreva uma notificação.");
             $("textarea[name=txacompnotificacao]").focus();
@@ -84,7 +87,7 @@ $( function() {
             $("textarea[name=txaeditnotificacao]").focus();
         }
     }
-    return conf;   
+    //return conf;
 }
 
 //--------------------------------Gerenciar Admins--------------------------------------------

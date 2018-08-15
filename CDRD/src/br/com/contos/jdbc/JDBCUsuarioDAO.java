@@ -5,7 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +29,7 @@ public class JDBCUsuarioDAO implements UsuarioDAO{
 			p.setString(3, usuario.getEmail());
 			p.setString(4, usuario.getNome());
 			p.setString(5, usuario.getNascimento());
-			p.setString(6, LocalDate.now());
+			p.setString(6, usuario.getNascimento());
 			p.setString(7, usuario.getPermissao());
 			p.execute();
 		} catch (SQLException e) {

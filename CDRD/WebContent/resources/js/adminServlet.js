@@ -1,5 +1,6 @@
 $(document).ready(function(){
 	var usuarioLogado;
+	var PATH = "../../";
 	
 	insereNotificacao = function(){
 		var notificacao = $("textarea[name=txacompnotificacao]").val();
@@ -11,7 +12,6 @@ $(document).ready(function(){
 			data: $("form[name=frmcompornotificacoes]").serialize(),
 			success: function (msg) {
 				alert(msg.msg);
-				carregaDados("admincrud");
 			},
 			error: function (info) {
 				alert("Erro ao cadastrar um novo administrador: "+ info.status + " - " + info.statusText);		   

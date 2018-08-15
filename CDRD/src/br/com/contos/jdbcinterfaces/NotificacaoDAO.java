@@ -8,6 +8,6 @@ public interface NotificacaoDAO {
 	
 	public boolean inserir(Notificacao notificacao);
 	public boolean atualizar(Notificacao notificacao);
-	public boolean deletar(Notificacao notificacao);
-	public List<Notificacao> buscar(String busca);
+	public boolean deletar(String notificacao);
+	public List<Notificacao> buscar();
 }

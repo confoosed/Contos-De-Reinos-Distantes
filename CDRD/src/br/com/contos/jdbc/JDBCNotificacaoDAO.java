@@ -5,7 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +26,7 @@ public class JDBCNotificacaoDAO implements NotificacaoDAO{
 			p = this.conexao.prepareStatement(comando);
 			p.setString(1, notificacao.getNotificacao());
 			p.setString(2, notificacao.getDataCriacao());
-			p.setString(3, notificacao.getUsuarioId());
+			p.setString(3, notificacao.getUsuario().getId());
 			p.execute();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -38,7 +37,7 @@ public class JDBCNotificacaoDAO implements NotificacaoDAO{
 	
 	public boolean atualizar(Notificacao notificacao){
 		String comando = "UPDATE notificacoes SET notificacao=?";
-		comando += " WHERE id=?";
+		comando += " WHERE notificacao=?";
 		PreparedStatement p;
 		try {
 			p = this.conexao.prepareStatement(comando);
@@ -51,8 +50,8 @@ public class JDBCNotificacaoDAO implements NotificacaoDAO{
 		return true;
 	}
 	
-	public boolean deletar(Notificacao notificacao) {
-		String comando = "DELETE FROM notificacoes WHERE notificacao = '" + notificacao +"'";
+	public boolean deletar(String id) {
+		String comando = "DELETE FROM notificacoes WHERE id = '" + id +"'";
 		Statement p;
 		try {
 			p = this.conexao.createStatement();
@@ -64,7 +63,7 @@ public class JDBCNotificacaoDAO implements NotificacaoDAO{
 		return true;
 	}
 	
-	public List<Notificacao> buscar(String busca) {
+	public List<Notificacao> buscar() {
 		String comando = "SELECT * FROM notificacoes";
 		System.out.println(comando);
 		List<Notificacao> listNotificacao = new ArrayList<Notificacao>();
@@ -75,8 +74,8 @@ public class JDBCNotificacaoDAO implements NotificacaoDAO{
 			while (rs.next()) {
 				notificacao = new Notificacao();
 				String notif = rs.getString("notificacao");
-				String datacriacao = notificacao.converteNascimentoParaFrontend(rs.getString("dataCriacao"));
-				String usuarioid = rs.getString("usuarioId");				
+				String datacriacao = notificacao.converteCriacaoParaFrontend(rs.getString("data_criacao"));
+				String usuarioid = rs.getString("usuario_id");				
 				notificacao.setNotificacao(notif);
 				notificacao.setDataCriacao(datacriacao);
 				notificacao.setUsuarioId(usuarioid);

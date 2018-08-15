@@ -8,5 +8,5 @@ public interface LogDeAcessoDAO {
 
 	public boolean inserir(LogDeAcesso log);
 	public boolean deletar(LogDeAcesso log);
-	public List<LogDeAcesso> buscar(String busca);
+	public List<LogDeAcesso> buscar();
 }

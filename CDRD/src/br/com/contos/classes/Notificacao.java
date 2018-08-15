@@ -1,6 +1,7 @@
 package br.com.contos.classes;
 
 import java.io.Serializable;
+import br.com.contos.classes.Usuario;
 
 public class Notificacao implements Serializable {
 
@@ -9,6 +10,7 @@ private static final long serialVersionUID = 1L;
 	private String id;
 	private String notificacao;
 	private String dataCriacao;
+	private Usuario usuario;
 	private String usuarioId;
 	
 	public String getId(){
@@ -31,6 +33,12 @@ private static final long serialVersionUID = 1L;
 	public void setDataCriacao(String dataCriacao) {
 		this.dataCriacao = dataCriacao;
 	}
+	public Usuario getUsuario() {
+		return usuario;
+	}
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
 	public String getUsuarioId() {
 		return usuarioId;
 	}
@@ -38,15 +46,16 @@ private static final long serialVersionUID = 1L;
 		this.usuarioId = usuarioId;
 	}
 	
-	public String converteNascimentoParaBD() {
-		String[] nascimentoDividido = dataCriacao.split("/");
-		String nascimentoConvertido = nascimentoDividido[2] + "-" + nascimentoDividido[1] + "-" + nascimentoDividido[0];
-		return nascimentoConvertido;
+	
+	public String converteCriacaoParaBD() {
+		String[] criacaoDividida = dataCriacao.split("/");
+		String criacaoConvertida = criacaoDividida[2] + "-" + criacaoDividida[1] + "-" + criacaoDividida[0];
+		return criacaoConvertida;
 	}
 	
-	public String converteNascimentoParaFrontend(String dataCriacao) {
-		String[] nascimentoDividido = dataCriacao.split("-");
-		String nascimentoConvertido = nascimentoDividido[2] + "/" + nascimentoDividido[1] + "/" + nascimentoDividido[0];
-		return nascimentoConvertido;
+	public String converteCriacaoParaFrontend(String datacriacao) {
+		String[] criacaoDividida = datacriacao.split("-");
+		String criacaoConvertida = criacaoDividida[2] + "/" + criacaoDividida[1] + "/" + criacaoDividida[0];
+		return criacaoConvertida;
 	}
 }
