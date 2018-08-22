@@ -42,7 +42,7 @@ public class InserirUsuario extends HttpServlet {
     		usuario.setNascimento(request.getParameter("dtenascimento"));
     		usuario.setLogin(request.getParameter("txtapelido"));
     		usuario.setSenha(Criptografia.criptografaSenha(request.getParameter("pwdsenha")));
-    		usuario.setPermissao(request.getParameter("hdpermissao"));
+    		usuario.setPermissao(request.getParameter("p"));
     		Conexao conec = new Conexao();
     		Connection conexao = conec.abrirConexao();
     		JDBCUsuarioDAO jdbcUsuario = new JDBCUsuarioDAO(conexao);

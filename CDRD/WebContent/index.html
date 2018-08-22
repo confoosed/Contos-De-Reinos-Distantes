@@ -280,7 +280,7 @@
                 </tr>
                 <tr>
                     <td class="intRow vAlign"><!--Td das falas do Personagem-->
-                        <form name="frmcadastro" id="cadastroJogador" onsubmit="return validaCadastro()">
+                        <form name="frmcadastro" id="cadastroJogador">
                         <table><!--Tabela da fala-->
                             <tr>
                             <td colspan="2" class="intCadRow intDialogue">Então vamos mudar isso! Preencha esta folha com seus dados:</td><!--Falas do Personagem-->
@@ -295,7 +295,7 @@
                             </tr>
                             <tr>
                             <td class="intCadOptions">Data de Nascimento:</td>
-                            <td class="tdInput" ><input type="date" name="dtedate" value="" class="intInput"></td>
+                            <td class="tdInput" ><input type="date" name="dtenascimento" value="" class="intInput"></td>
                             </tr>
                             <tr>
                             <td class="intCadOptions">Usuário:</td>
@@ -303,7 +303,7 @@
                             </tr>
                             <tr>
                             <td class="intCadOptions">Senha:</td>
-                            <td class="tdInput" ><input type="password" name="pwdsenha" value="" class="intInput" maxlength="32"></td>
+                            <td class="tdInput" ><input type="password" name="pwdsenhacad" value="" class="intInput" maxlength="32"></td>
                             </tr>
                             <tr>
                             <td class="intCadOptions">Confirmar Senha:</td>
@@ -311,7 +311,7 @@
                             </tr>
                             <tr>
                             <td><input type="reset" value="Limpar" class="intCadButton3"></td>
-                            <td><input type="submit" value="Enviar" class="intCadButton4"></td>
+                            <td><input type="button" value="Enviar" class="intCadButton4" onclick="cadastraJgr()"></td>
                             </tr>
                         </table><!--Fim da tabela da fala-->
                         </form>
