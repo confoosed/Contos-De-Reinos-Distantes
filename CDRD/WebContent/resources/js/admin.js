@@ -273,24 +273,24 @@ function validaMinhaConta(){
 
 
   function validaNotificacao(compedit){//Recebe o parâmetro se o foi chamado pelo compor ou pelo editar.
-    var conf = false;
-    if(compedit==0){
-        if($("textarea[name=txacompnotificacao]").val()!=""){
-            conf = confirm("Você tem certeza que deseja postar uma notificação?");
-        }else{
-            alert("Escreva uma notificação.");
-            $("textarea[name=txacompnotificacao]").focus();
-        }
-    }else if(compedit==1){
-        if($("textarea[name=txaeditnotificacao]").val()!=""){
-            conf = confirm("Você tem certeza que deseja editar uma notificação?");
-        }else{
-            alert("Escreva uma notificação.");
-            $("textarea[name=txaeditnotificacao]").focus();
-        }
-    }
-    return conf;   
-}
+	  var conf = false;
+	  if(compedit==0){
+		  if($("textarea[name=txacompnotificacao]").val()!=""){
+			  conf = confirm("Você tem certeza que deseja postar uma notificação?");
+		  }else{
+			  alert("Escreva uma notificação.");
+			  $("textarea[name=txacompnotificacao]").focus();
+		  }
+	  }else if(compedit==1){
+		  if($("textarea[name=txaeditnotificacao]").val()!=""){
+			  conf = confirm("Você tem certeza que deseja editar uma notificação?");
+		  }else{
+			  alert("Escreva uma notificação.");
+			  $("textarea[name=txaeditnotificacao]").focus();
+		  }
+	  }
+	  return conf;   
+  }
 
   //consulta
   buscaAdmParaEditar = function(id){
@@ -342,6 +342,19 @@ function validaMinhaConta(){
 			});
 		}
   };
+  
+  sair = function(){
+		$.ajax({
+			type: "POST",
+			url: PATH + "Logout",
+			success: function (data) {
+				window.location.href = (PATH+"index.html");	
+			},
+			error: function (info) {
+				alert("Erro ao tentar encerrar sua sessão: "+ info.status + " - " + info.statusText);	
+			}
+		});
+	}
 
   
 

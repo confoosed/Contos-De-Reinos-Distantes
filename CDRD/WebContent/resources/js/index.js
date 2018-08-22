@@ -31,6 +31,26 @@ function abrirModal(){
     $("#guard_1").show();  
 }
 
-
-
+function login(){
+	var login = document.frmlogin.txtlogin.value;
+	var senha = document.frmlogin.pwdsenha.value;
+	if((login=="")||(senha=="")){
+		alert("Preencha tudo aí, meu!");
+	} else {
+		$.ajax({
+			type: "POST",
+			url: "Login",
+			data: "login="+login+"&senha="+senha,
+			success: function (msg) {
+				if (msg.msg!=null)
+					alert(msg.msg);
+				else
+					window.location.href = msg.url;
+			},
+			error: function (info) {
+				alert("Erro ao tentar login: "+ info.status + " - " + info.statusText);		   
+			}
+		});
+	}
+}
 

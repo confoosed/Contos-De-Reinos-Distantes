@@ -41,14 +41,13 @@ public class JDBCUsuarioDAO implements UsuarioDAO{
 
 	public Usuario buscarPorValor(String valor, String tipo) {
 		String comando = "SELECT * FROM usuarios"
-			+ " WHERE ? = '?'";
+			+ " WHERE "+tipo+" = ?";
 		Usuario usuario = new Usuario();
 		PreparedStatement p;
 		try {
 			p = this.conexao.prepareStatement(comando);
-			p.setString(1, tipo);
-			p.setString(2, valor);
-			ResultSet rs = p.executeQuery(comando);
+			p.setString(1, valor);
+			ResultSet rs = p.executeQuery();
 			while (rs.next()) {
 				String id = rs.getString("id");
 				String login = rs.getString("usuario");
