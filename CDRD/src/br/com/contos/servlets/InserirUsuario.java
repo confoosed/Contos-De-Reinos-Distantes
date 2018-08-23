@@ -41,7 +41,7 @@ public class InserirUsuario extends HttpServlet {
     		usuario.setEmail(request.getParameter("txtemail"));
     		usuario.setNascimento(request.getParameter("dtenascimento"));
     		usuario.setLogin(request.getParameter("txtapelido"));
-    		usuario.setSenha(Criptografia.criptografaSenha(request.getParameter("pwdsenha")));
+    		usuario.setSenha(Criptografia.criptografaSenha(request.getParameter("pwdsenhacad")));
     		usuario.setPermissao(request.getParameter("p"));
     		Conexao conec = new Conexao();
     		Connection conexao = conec.abrirConexao();

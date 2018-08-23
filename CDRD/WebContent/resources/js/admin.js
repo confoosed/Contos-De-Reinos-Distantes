@@ -149,7 +149,7 @@ function cadastraAdm(){
 		$.ajax({
 			type: "POST",
 			url: PATH + "InserirUsuario",
-			data: $("#cadastrarAdmin").serialize(),
+			data: $("#cadastrarAdmin").serialize()+"&p=0",
 			success: function (msg) {
 				alert(msg.msg);
 			},
@@ -166,36 +166,36 @@ function validaCadastroAdm(){
         if($("input[name=txtemail]").val()!=""){
             if($("input[name=dtenascimento]").val()!=""){
                 if($("input[name=txtapelido]").val()!=""){
-                    if($("input[name=pwdsenha]").val()!=""){
+                    if($("input[name=pwdsenhacad]").val()!=""){
                         if($("input[name=pwdconfsenha]").val()!=""){
-                            if($("input[name=pwdsenha]").val()==$("input[name=pwdconfsenha]").val()){
+                            if($("input[name=pwdsenhacad]").val()==$("input[name=pwdconfsenha]").val()){
                                 conf = confirm("Tem certeza que deseja cadastrar um novo administrador?");
                             }else{
                                 alert("As senhas não coincidem.");
                             }
                         }else{
                             alert("Preencha a validação de senha.");
-                            $("input[name=pwdconfsenhaadm]").focus();
+                            $("input[name=pwdconfsenha]").focus();
                         }
                     }else{
                         alert("Preencha a senha.");
-                        $("input[name=pwdsenhaadm]").focus();
+                        $("input[name=pwdsenhacad]").focus();
                     }
                 }else{
                     alert("Preencha o nome de usuário do administrador.");
-                    $("input[name=txtapelidoadm]").focus();
+                    $("input[name=txtapelido]").focus();
                 }
             }else{
                 alert("Preencha a data de nascimento.");
-                $("input[name=dtenascimentoadm]").focus();
+                $("input[name=dtenascimento]").focus();
             }
         }else{
             alert("Preencha o e-mail.");
-            $("input[name=txtemailadm]").focus();
+            $("input[name=txtemail]").focus();
         }
     }else{
         alert("Preencha o nome.");
-        $("input[name=txtnomeadm]").focus();
+        $("input[name=txtnome]").focus();
     }
     return conf;
 }    
