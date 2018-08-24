@@ -20,13 +20,13 @@ public class JDBCNotificacaoDAO implements NotificacaoDAO{
 	}
 	
 	public boolean inserir(Notificacao notificacao){
-		String comando = "INSERT INTO notificacacoes (notificacao, data_criacao, usuario_id) VALUES (?,?,?)";
+		String comando = "INSERT INTO notificacoes (notificacao, data_criacao, usuarios_id) VALUES (?,?,?)";
 		PreparedStatement p;
 		try{
 			p = this.conexao.prepareStatement(comando);
 			p.setString(1, notificacao.getNotificacao());
 			p.setString(2, notificacao.getDataCriacao());
-			p.setString(3, notificacao.getUsuario().getId());
+			p.setString(3, notificacao.getUsuarioId());
 			p.execute();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -35,13 +35,14 @@ public class JDBCNotificacaoDAO implements NotificacaoDAO{
 		return true;
 		}
 	
-	public boolean atualizar(Notificacao notificacao){
+	public boolean alterar(Notificacao notificacao){
 		String comando = "UPDATE notificacoes SET notificacao=?";
-		comando += " WHERE notificacao=?";
+		comando += " WHERE id=?";
 		PreparedStatement p;
 		try {
 			p = this.conexao.prepareStatement(comando);
 			p.setString(1, notificacao.getNotificacao());
+			p.setString(2, notificacao.getId());
 			p.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -73,9 +74,11 @@ public class JDBCNotificacaoDAO implements NotificacaoDAO{
 			ResultSet rs = stmt.executeQuery(comando);
 			while (rs.next()) {
 				notificacao = new Notificacao();
+				String id = rs.getString("id");
 				String notif = rs.getString("notificacao");
 				String datacriacao = notificacao.converteCriacaoParaFrontend(rs.getString("data_criacao"));
-				String usuarioid = rs.getString("usuario_id");				
+				String usuarioid = rs.getString("usuarios_id");	
+				notificacao.setId(id);
 				notificacao.setNotificacao(notif);
 				notificacao.setDataCriacao(datacriacao);
 				notificacao.setUsuarioId(usuarioid);

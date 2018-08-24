@@ -57,10 +57,10 @@ $( function() {
   })
   //Função para quando o usuário clicar em editar, descarregar a div ComporNotificacoes e carregar
   //a div EditarNotificacoes no lugar.                
-  function editarNotificacao(){
+  /*function editarNotificacao(){
       $(".divComporNotificacoes").hide();
-      $("#divEditarNotificacoes").show();
-  }
+      $("#divEditarNotificacoes").show();	 ESTA FUNCAO AGORA ESTA NO ADMINSERVLET, NO MÉTODO alterarNotificacao
+  }*/ 
   //Funcao para descarregar EditarNotificacoes e recarregar ComporNotificacoes quando clicar em cancelar
   function cancelarEdicao(){
       $(".divComporNotificacoes").show();
@@ -82,6 +82,9 @@ $( function() {
     }else if(compedit==1){
         if($("textarea[name=txaeditnotificacao]").val()!=""){
             conf = confirm("Você tem certeza que deseja editar uma notificação?");
+            if(conf==true){
+            	alteraNotificacao();
+            }
         }else{
             alert("Escreva uma notificação.");
             $("textarea[name=txaeditnotificacao]").focus();

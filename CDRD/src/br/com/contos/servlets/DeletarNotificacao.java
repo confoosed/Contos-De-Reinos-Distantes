@@ -21,7 +21,7 @@ import br.com.contos.conexao.Conexao;
 /**
  * Servlet implementation class DeletaNotificacao
  */
-@WebServlet("/DeletaNotificacao")
+@WebServlet("/DeletarNotificacao")
 public class DeletarNotificacao extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -35,11 +35,11 @@ public class DeletarNotificacao extends HttpServlet {
 
     private void process(HttpServletRequest request, HttpServletResponse response)
     		throws ServletException, IOException{
-    	String notificacao = request.getParameter("id");//pega o id do botao deletar
+    	String id = request.getParameter("id");
     	Conexao conec = new Conexao();
     	Connection conexao = conec.abrirConexao();
     	JDBCNotificacaoDAO jdbcNotificacao = new JDBCNotificacaoDAO(conexao);
-    	boolean retorno = jdbcNotificacao.deletar(notificacao);
+    	boolean retorno = jdbcNotificacao.deletar(id);
     	conec.fecharConexao();
     	
     	Map<String, String> msg = new HashMap<String, String>();

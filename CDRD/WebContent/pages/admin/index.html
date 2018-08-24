@@ -9,14 +9,8 @@
     <meta name="last-modified" content="2018/06/06">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="../../resources/style/css/admin.css" />
-    <script
-        src="https://code.jquery.com/jquery-3.3.1.js"
-        integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
-        crossorigin="anonymous"></script>
-        <script
-        src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"
-        integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30="
-        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="../../resources/js/admin.js"></script>
     <script src="../../resources/js/adminServlet.js"></script>
 </head>
@@ -84,7 +78,7 @@
             <div class="divSelecionarContas comBorda">
                 <h2>Contas:</h2>
                 <input type="text" placeholder="search...">
-                <button type="submit">Procurar</button><!--Botão para procurar contas-->
+                <button type="button" onclick="buscaUsuario()">Procurar</button><!--Botão para procurar contas-->
                 <ul class="listaContas">
                     <li>jogador1</li>
                     <li>jogador2</li>
@@ -101,14 +95,14 @@
             </div>
             <div class="divDeletarContas comBorda">
                 <h2>Deletar conta:</h2>
-                <form name="frmdeletarconta" onsubmit="return deletarUsuario(0)">
+                <form name="frmdeletarconta">
                     <h3>Usuário selecionado:</h3>
                     <input readonly id="input1" type="text" name="txtusuario" placeholder="Nenhum usuário selecionado">
                     <h3 id="tituloMotivo">Motivo:</h3>
                     <textarea name="txamotivo" id="txa1"></textarea>
                     <div class="divBotoesDeletar">
                         <button type="reset" name="btnlimparmotivo">Limpar</button>
-                        <button name="btndeletarconta" type="submit">Deletar Conta</button><!--Botão para deletar contas-->
+                        <button name="btndeletarconta" type="button" onclick="deletarUsuario(0)">Deletar Conta</button> <!--Botão para deletar contas-->
                     </div>
                 </form>
             </div>
@@ -146,25 +140,26 @@
         </div>
         <div class="conteudo" id="admPaginas-4"> <!--Notificações-->
             <div class="divComporNotificacoes comBorda">
-                <form name="frmcompornotificacoes" onsubmit="return validaNotificacao(0)">
+                <form name="frmcompornotificacoes">
                     <h2>Compor nova notificação:</h2>
                     <textarea name="txacompnotificacao" cols="30" rows="7"></textarea>
-                    <div><button type="submit" name="btnpostarnotificacao" id="botaoPostar">Postar Notificação</button></div>
+                    <div><button type="button" name="btnpostarnotificacao" id="botaoPostar" onclick="validaNotificacao(0)">Postar Notificação</button></div>
                 </form>
             </div>
             <div class="divComporNotificacoes comBorda" id="divEditarNotificacoes">
-                <form name="frmeditarnotificacoes" onsubmit="return validaNotificacao(1)">
+                <form name="frmeditarnotificacoes">
                     <h2>Editar notificação:</h2>
                     <textarea name="txaeditnotificacao" cols="30" rows="7"></textarea>
+                    <input type="hidden" name="idnotificacao">
                     <div class="divBotoesEditar">
-                        <button type="submit">Editar Notificação</button>
+                        <button type="button"  onclick="validaNotificacao(1)">Editar Notificação</button>
                         <button type="button" onclick="cancelarEdicao()">Cancelar</button>
                     </div>
                 </form>
             </div>
-            <div class="divHistoricoNotificacoes comBorda">
+            <div id=listNotificacao class="divHistoricoNotificacoes comBorda">
                 <h2>Histórico de notificações:</h2>
-                <table class="tabelaNotificacoes">
+                <!--<table class="tabelaNotificacoes">
                     <tr>
                         <th>Data:</th>
                         <th class="colMeio">Mensagem:</th>
@@ -189,6 +184,7 @@
                         <td colspan="3"><button id="carregarNotificacoes">Carregar mais</button></td>
                     </tr>
                 </table>
+                  -->
             </div>
         </div>
         <div class="conteudo" id="admPaginas-5"> <!--Gráficos-->
@@ -201,7 +197,7 @@
         <div class="conteudo" id="admPaginas-6"> <!--Gerenciard Admin-->
             <div class="divListaContasAdmin comBorda quaseCheio">
                 <h2>Cadastro de Administrador</h2>
-                <form id="cadastrarAdmin" name="frmcadastraradm" onsubmit="return validaCadastroAdm()">
+                <form id="cadastrarAdmin" name="frmcadastraradm">
                     <div class="cadCampo">
                         <label>Nome Completo: </label>
                         <input type="text" name="txtnomeadm" id="cadNome">
@@ -227,7 +223,7 @@
                         <input type="password" name="pwdconfsenhaadm" id="cadconfsenha">
                     </div>
                     <div class="cadBotoes">
-                        <button type="submit">Enviar</button>
+                        <button type="button" onclick="validaCadastroAdm()">Enviar</button>
                         <button type="reset">Limpar</button>
                     </div>
                 </form>
@@ -235,7 +231,7 @@
             <div class="divSelecionarContas comBorda">
                     <h2>Contas:</h2>
                     <input type="text" placeholder="search...">
-                    <button type="submit">Procurar</button><!--Botão para procurar contas-->
+                    <button type="button" onclick="buscarAdmins()">Procurar</button><!--Botão para procurar contas-->
                     <ul class="listaContas" id="listaAdmins">
                         <li>adm1</li>
                         <li>adm2</li>
@@ -245,14 +241,14 @@
                 </div>
                 <div class="divDeletarContas comBorda">
                     <h2>Deletar administrador:</h2>
-                    <form name="frmdeletarcontaadm" onsubmit="return deletarUsuario(1)">
+                    <form name="frmdeletarcontaadm">
                         <h3>Admin selecionado:</h3>
                         <input readonly type="text" name="txtadmin" placeholder="Nenhum administrador selecionado">
                         <h3 class="tituloMotivo">Motivo:</h3>
                         <textarea name="txamotivoadm"></textarea>
                         <div class="divBotoesDeletar">
                             <button type="reset" name="btnlimparmotivo">Limpar</button>
-                            <button name="btndeletarconta" type="submit">Deletar Conta</button><!--Botão para deletar contas-->
+                            <button name="btndeletarconta" type="button" onclick="deletarUsuario(1)">Deletar Conta</button><!--Botão para deletar contas-->
                         </div>
                     </form>
                 </div>
@@ -260,7 +256,7 @@
         <div class="conteudo" id="admPaginas-7"> <!--Minha Conta-->
             <div class="divMinhaConta comBorda quaseCheio">
                 <h2>Minha Conta</h2>
-                <form name="frmminhaconta" id="editarConta" onsubmit="return validaMinhaConta()">
+                <form name="frmminhaconta" id="editarConta">
                     <div class="cadCampo">
                         <label>Nome Completo: </label>
                         <input type="text" name="txtnome" id="altNome"> 
@@ -290,7 +286,7 @@
                         <input type="password" name="pwdconfsenha" id="altConfSenha">
                     </div>
                     <div class="cadBotoes">
-                        <button type="submit">Enviar</button>
+                        <button type="button" onclick="return validaMinhaConta()">Enviar</button>
                         <button type="reset">Limpar</button>
                     </div>
                 </form>

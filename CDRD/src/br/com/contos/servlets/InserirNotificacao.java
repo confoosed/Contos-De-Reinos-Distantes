@@ -22,7 +22,7 @@ import br.com.contos.conexao.Conexao;
 /**
  * Servlet implementation class InsereNotificacao
  */
-@WebServlet("/InsereNotificacao")
+@WebServlet("/InserirNotificacao")
 public class InserirNotificacao extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -40,11 +40,11 @@ public class InserirNotificacao extends HttpServlet {
     	Notificacao notificacao = new Notificacao();
     	
     	try	{
-    		notificacao.setNotificacao(request.getParameter("txacompnotificacao"));
-    		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");  
+    		notificacao.setNotificacao(request.getParameter("notificacao"));
+    		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
     		LocalDateTime now = LocalDateTime.now();  
     		notificacao.setDataCriacao(dtf.format(now));
-    		notificacao.setUsuarioId(request.getParameter("txtusuarioid"));//Pelo ajax, pegar id do usuario logado.
+    		notificacao.setUsuarioId(request.getParameter("usuario_id"));//Pelo ajax, pegar id do usuario logado.
     		Conexao conec = new Conexao();
     		Connection conexao = conec.abrirConexao();
     		JDBCNotificacaoDAO jdbcNotificacao = new JDBCNotificacaoDAO(conexao);

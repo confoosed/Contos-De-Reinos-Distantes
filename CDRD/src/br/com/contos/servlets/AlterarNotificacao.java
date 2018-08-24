@@ -20,7 +20,7 @@ import com.google.gson.Gson;
 /**
  * Servlet implementation class AtualizarNotificacao
  */
-@WebServlet("/AtualizarNotificacao")
+@WebServlet("/AlterarNotificacao")
 public class AlterarNotificacao extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -40,8 +40,9 @@ public class AlterarNotificacao extends HttpServlet {
     		JDBCNotificacaoDAO jdbcNotificacao = new JDBCNotificacaoDAO(conexao);
     		Map<String, String> msg = new HashMap<String, String>();
     		Notificacao notificacao = new Notificacao();
-    	    notificacao.setNotificacao(request.getParameter("txaeditnotificacao"));
-    	    boolean retorno = jdbcNotificacao.atualizar(notificacao);
+    		notificacao.setNotificacao(request.getParameter("txaeditnotificacao"));
+    	    notificacao.setId(request.getParameter("idnotificacao"));
+    	    boolean retorno = jdbcNotificacao.alterar(notificacao);
     		conec.fecharConexao();    	
     			if (retorno) {
     				msg.put("msg", "Notificação editada com sucesso.");

@@ -1,7 +1,6 @@
 package br.com.contos.classes;
 
 import java.io.Serializable;
-import br.com.contos.classes.Usuario;
 
 public class Notificacao implements Serializable {
 
@@ -10,7 +9,6 @@ private static final long serialVersionUID = 1L;
 	private String id;
 	private String notificacao;
 	private String dataCriacao;
-	private Usuario usuario;
 	private String usuarioId;
 	
 	public String getId(){
@@ -33,12 +31,7 @@ private static final long serialVersionUID = 1L;
 	public void setDataCriacao(String dataCriacao) {
 		this.dataCriacao = dataCriacao;
 	}
-	public Usuario getUsuario() {
-		return usuario;
-	}
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
-	}
+
 	public String getUsuarioId() {
 		return usuarioId;
 	}
