@@ -62,9 +62,10 @@ function cadastraJgr(){
 			data: $("#cadastrarJogador").serialize()+"&p=1",
 			success: function (msg) {
 				alert(msg.msg);
+				location.reload();
 			},
 			error: function (info) {
-				alert("Erro ao cadastrar um novo jogador: "+ info.status + " - " + info.statusText);		   
+				alert("Erro ao cadastrar um novo jogador: "+ info.status + " - " + info.statusText);
 			}
 		});
 	}

@@ -217,7 +217,7 @@
                     </div>
                     <div class="cadCampo">
                         <label>Nome do Administrador: </label>
-                        <input type="text" name="txtapelido" id="cadApelido">
+                        <input type="text" name="txtlogger" id="cadApelido">
                     </div>
                     <div class="cadCampo">
                         <label>Senha: </label>
@@ -259,7 +259,7 @@
         <div class="conteudo" id="admPaginas-7"> <!--Minha Conta-->
             <div class="divMinhaConta comBorda quaseCheio">
                 <h2>Minha Conta</h2>
-                <form name="frmminhaconta" id="editarConta" onsubmit="return validaMinhaConta()">
+                <form name="frmminhaconta" id="editarConta">
                     <div class="cadCampo">
                         <label>Nome Completo: </label>
                         <input type="text" name="txtaltnome" id="altNome"> 
@@ -273,8 +273,8 @@
                         <input type="date" name="dtealtnascimento" id="altNascimento">
                     </div>
                     <div class="cadCampo">
-                        <label>Nome do Administrador: </label>
-                        <input type="text" name="txtaltapelido" id="altApelido">
+                        <label>Apelido do Administrador: </label>
+                        <input type="text" name="txtaltlogger" id="altLogger">
                     </div>
                     <div class="cadCampo">
                         <label>Senha Antiga:</label>
@@ -289,8 +289,9 @@
                         <input type="password" name="pwdaltconfsenhanova" id="altConfSenha">
                     </div>
                     <div class="cadBotoes">
-                        <button type="submit">Enviar</button>
-                        <button type="reset">Limpar</button>
+                    	<input type="hidden" name="hdid" id="altId">
+                        <button onclick="alteraUsuario()">Enviar</button>
+                        <button onclick="buscaAdmParaEditar(#altId.value)">Limpar</button>
                     </div>
                 </form>
             </div>

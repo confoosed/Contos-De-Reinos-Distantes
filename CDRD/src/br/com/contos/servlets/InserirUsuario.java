@@ -40,16 +40,18 @@ public class InserirUsuario extends HttpServlet {
     		usuario.setNome(request.getParameter("txtnome"));
     		usuario.setEmail(request.getParameter("txtemail"));
     		usuario.setNascimento(request.getParameter("dtenascimento"));
-    		usuario.setLogin(request.getParameter("txtapelido"));
+    		usuario.setLogin(request.getParameter("txtlogger"));
     		usuario.setSenha(Criptografia.criptografaSenha(request.getParameter("pwdsenhacad")));
     		usuario.setPermissao(request.getParameter("p"));
     		Conexao conec = new Conexao();
     		Connection conexao = conec.abrirConexao();
     		JDBCUsuarioDAO jdbcUsuario = new JDBCUsuarioDAO(conexao);
     		Usuario usuariobd=jdbcUsuario.buscarPorValor(usuario.getLogin(), "usuario");
-    		String loginbd = usuariobd.getLogin();
     		Map<String, String> msg = new HashMap<String, String>();
-    		if (usuario.getLogin().equals(loginbd)) {
+    		System.out.println(usuario.getLogin());
+    		System.out.println(usuariobd.getLogin());
+    		System.out.println(request.getParameter("txtlogger"));
+    		if (usuario.getLogin().equals(usuariobd.getLogin())) {
     			msg.put("msg", "Esse login já existe.");
     		} else {	
 	    		boolean retorno = jdbcUsuario.inserir(usuario);

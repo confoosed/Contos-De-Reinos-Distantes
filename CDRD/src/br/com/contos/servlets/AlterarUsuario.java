@@ -40,30 +40,37 @@ public class AlterarUsuario extends HttpServlet {
     		Conexao conec = new Conexao();
     		Connection conexao = conec.abrirConexao();
     		JDBCUsuarioDAO jdbcUsuario = new JDBCUsuarioDAO(conexao);
-    		Usuario usuariobd = jdbcUsuario.buscarPorValor(request.getParameter("txtapelido"), "usuario");
+    		Usuario usuariobd = jdbcUsuario.buscarPorValor(request.getParameter("hdid"), "id");
+    		Usuario cheque = jdbcUsuario.buscarPorValor(request.getParameter("txtaltlogger"), "usuario");
     		Map<String, String> msg = new HashMap<String, String>();
-    		if (request.getParameter("txtapelido").equals(usuariobd.getLogin())) {
-    			String senhaAtualCript = Criptografia.criptografaSenha(request.getParameter("txtsenhaatual")); 
-    			if (senhaAtualCript.equals(usuariobd.getSenha())) {
-    				Usuario usuario = new Usuario();
-    	    		usuario.setLogin(request.getParameter("txtapelido"));
-    	    		usuario.setSenha(request.getParameter("txtnovasenha"));
-    	    		usuario.setNome(request.getParameter("txtnome"));
-    	    		usuario.setNascimento(request.getParameter("dtenascimento"));
-    	    		usuario.setEmail(request.getParameter("txtemail"));
-    	    		boolean retorno = jdbcUsuario.atualizar(usuario);
-    		    	conec.fecharConexao();
-    		    	
-    		    	if (retorno) {
-    		    		msg.put("msg", "Usuário editado com sucesso.");
-    		    	} else {
-    		    		msg.put("msg", "Não foi possível editar o usuário.");
-    		    		msg.put("erro", "true");
-    		    	}
-	    		} else {
-	    			msg.put("msg", "Senha não corresponde com o cadastro.");
-	    			msg.put("erro", "true");
-	    		}
+    		if (request.getParameter("hdid").equals(usuariobd.getId())) {
+    			if(!request.getParameter("txtaltlogger").equals(cheque.getLogin())) {
+    			
+	    			String senhaAtualCript = Criptografia.criptografaSenha(request.getParameter("txtsenhaatual")); 
+	    			if (senhaAtualCript.equals(usuariobd.getSenha())) {
+	    				Usuario usuario = new Usuario();
+	    	    		usuario.setLogin(request.getParameter("txtaltlogger"));
+	    	    		usuario.setSenha(request.getParameter("txtaltnovasenha"));
+	    	    		usuario.setNome(request.getParameter("txtaltnome"));
+	    	    		usuario.setNascimento(request.getParameter("dtealtnascimento"));
+	    	    		usuario.setEmail(request.getParameter("txtaltemail"));
+	    	    		boolean retorno = jdbcUsuario.atualizar(usuario);
+	    		    	conec.fecharConexao();
+	    		    	
+	    		    	if (retorno) {
+	    		    		msg.put("msg", "Usuário editado com sucesso.");
+	    		    	} else {
+	    		    		msg.put("msg", "Não foi possível editar o usuário.");
+	    		    		msg.put("erro", "true");
+	    		    	}
+		    		} else {
+		    			msg.put("msg", "Senha não corresponde com o cadastro.");
+		    			msg.put("erro", "true");
+		    		}
+    			}else{
+    				msg.put("msg", "Já existe um usuário com este login.");
+    	    		msg.put("erro", "true");
+    			}
     		} else {	
 	    		msg.put("msg", "Você não pode alterar seu usuário.");
 	    		msg.put("erro", "true");

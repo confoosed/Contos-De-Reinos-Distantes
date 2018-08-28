@@ -45,8 +45,6 @@ public class Login extends HttpServlet {
     		Map<String, String> msg = new HashMap<String, String>();
     		if (request.getParameter("login").equals(usuario.getLogin())) {
     			String senhaFormCript = Criptografia.criptografaSenha(request.getParameter("senha")); 
-    			System.out.println(senhaFormCript);
-    			System.out.println(usuario.getSenha());
     			if (senhaFormCript.equals(usuario.getSenha())) {
     				HttpSession sessao = request.getSession();
     				sessao.setAttribute("login", usuario.getLogin());

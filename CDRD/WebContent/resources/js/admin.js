@@ -9,7 +9,30 @@ $( function() {
   } );
 var usuarioLogado;
 var PATH = "../../"
-  
+	
+$(function(){
+	$.ajax({
+		type: "POST",
+		url: PATH + "ValidarSessao",
+		data: "p=0",
+		success: function (usuario) {
+			if (usuario.login!=null){
+				usuarioLogado = new Object();
+				usuarioLogado.id = usuario.id;
+				usuarioLogado.login = usuario.login;
+				usuarioLogado.email = usuario.email;
+				usuarioLogado.nome = usuario.nome;
+				usuarioLogado.nascimento = usuario.nascimento;
+				buscaAdmParaEditar(usuarioLogado.id);
+			} else {
+				sair();
+			}	
+		},
+		error: function (info) {
+			sair();
+		}
+	});
+});
   //se os campos estao preenchidos pede confirmação, se sim, envia.
 deletarUsuario = function (tipouser){//Parâmetro para ver se foi chamado por gerenciar contas ou adm.
     var conf = false;
@@ -215,7 +238,7 @@ function validaMinhaConta(){
     if($("input[name=txtaltnome]").val()!=""){
         if($("input[name=txtaltemail]").val()!=""){
             if($("input[name=dtealtnascimento]").val()!=""){
-                if($("input[name=txtaltapelido]").val()!=""){
+                if($("input[name=txtaltlogger]").val()!=""){
                     if($("input[name=pwdaltsenhaantiga]").val()!=""){
                         if($("input[name=pwdaltsenhanova]").val()!=""){
                             if($("input[name=pwdaltconfsenhanova]").val()!=""){
@@ -238,7 +261,7 @@ function validaMinhaConta(){
                     }
                 }else{
                     alert("Preencha o nome de usuário.");
-                    $("input[name=txtaltapelido]").focus();
+                    $("input[name=txtaltlogger]").focus();
                 }
             }else{
                 alert("Preencha a data de nascimento.");
@@ -296,13 +319,14 @@ function validaMinhaConta(){
   buscaAdmParaEditar = function(id){
 	  $.ajax({
 		  type: "POST",
-		  url: PATH + "BuscarUsuarioPorValor",
-		  data: "valor="+id+"&tipo=id",
-		  success: function(nome){
-			  $("#altNome").val(contato.nome);
-			  $("#altEmail").val(contato.email);
-			  $("#altNascimento").val(contato.nascimento);
-			  $("#altApelido").val(contato.login);
+		  url: PATH + "BuscarUsuario",
+		  data: "id="+id,
+		  success: function(usuario){
+			  $("#altId").val(usuario.id);
+			  $("#altNome").val(usuario.nome);
+			  $("#altEmail").val(usuario.email);
+			  $("#altNascimento").val(usuario.nascimento);
+			  $("#altLogger").val(usuario.login);
 			  $("#altVelhaSenha").val("");
 			  $("#altNovaSenha").val("");
 			  $("#altConfSenha").val("");
@@ -315,26 +339,13 @@ function validaMinhaConta(){
   
   //deixausuario alterado
   alteraUsuario = function(){
-		var nome = document.frmadminedit.txtaltnome.value;
-		var email = document.frmadminedit.txtaltemail.value;
-		var nascimento = document.frmadminedit.dtealtnascimento.value;
-		var login = document.frmadminedit.txtaltlogin.value;
-		var senhaatual = document.frmadminedit.pwdaltsenhaantiga.value;
-		var novasenha = document.frmadminedit.pwdaltnovasenha.value;
-		var confsenha = document.frmadminedit.pwdaltconfsenha.value;
-		if((senhaatual=="")||(novasenha=="")||(nome=="")||(email=="")||(nascimento=="")){
-			alert("Não deixa nada vazio, meu!");
-		} else if (novasenha!=confsenha){ 
-			alert("Repete as duas senhas, né, meu!");
-		} else {
+		if(validaMinhaConta()){
 			$.ajax({
 				type: "POST",
 				url: PATH + "AlterarUsuario",
 				data: $("#editarConta").serialize(),
 				success: function (msg) {
 					alert(msg.msg);
-					if(!msg.erro)
-						carregaPagina();
 				},
 				error: function (info) {
 					alert("Erro ao alterar os dados: "+ info.status + " - " + info.statusText);		   
