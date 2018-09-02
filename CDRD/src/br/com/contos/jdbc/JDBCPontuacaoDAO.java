@@ -111,7 +111,7 @@ public class JDBCPontuacaoDAO implements PontuacaoDAO {
                 while (result.next()) {
 
                     //Se estiver maior que cinco vai dizer que deu merda
-                    if (listaDePontuacoes.size() > 4) {
+                    if (listaDePontuacoes.size() > 5) {
                     	//se tiver maior que devia estar, zera todas as pontuações (pode dar ruin? CLARO QUE SIM POURA!)
                     	deletarPontuacao(usuarioId);
                         throw new SQLException("Deu merda no tamnho da lista."

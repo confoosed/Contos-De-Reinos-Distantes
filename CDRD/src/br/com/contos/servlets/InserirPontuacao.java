@@ -84,21 +84,15 @@ public class InserirPontuacao extends HttpServlet{
 			//Criação da mensagem de retorno 
 			Map<String, String> msg = new HashMap<String, String>();
 			
-			//Se a lista voltar nula, significa que deu merda em algum ponto
-			if(listaDePontuacoes == null) {
-				
-				//Atualização da msg dizendo que deu merda
-				msg.put("msg","Deu caca na hora de buscar nossos registros. Lamentamos pelo inconveniente");
+			//Essa variável irá dizer se os processos realizados pelo JDBC deram certo ou não
+			Boolean retorno = null;
 			
-			//Se não tiver dado problema até aqui...
-			}else {
-				
-				//Essa variável irá dizer se os processos realizados pelo JDBC deram certo ou não
-				Boolean retorno = null;
+			//Se a lista voltar nula, significa que deu merda em algum ponto
+			if(listaDePontuacoes != null) {
 				
 				//Se não tiver pontuação salva
 				System.out.println("Tamanho da lista de pontuações do feladapota: " + listaDePontuacoes.size());
-				if((listaDePontuacoes.size() < 5)||(listaDePontuacoes.isEmpty())) {//Problema com número de pontuações 
+				if(((listaDePontuacoes.size() !=5))||(listaDePontuacoes.isEmpty())) {//Problema com número de pontuações 
 					
 					//Chama o método para inserção da nova pontuação
 					retorno = jdbcPontuacao.inserirPontuacao(pontuacao);
@@ -111,25 +105,31 @@ public class InserirPontuacao extends HttpServlet{
 					 
 				}
 				
-				/*
-				 * 	Checa se os processos do JDBC foram de boas ou falharam. Se estiver true,
-				 * 	tudo ocorreu bem, e se estiver falso, deu merda em algum ponto
-				 */
-				if(retorno) {
-					msg.put("msg","Sua pontuação foi atualizada!");
-				}else {
-					msg.put("msg", "Não atualizou a pontuação não fion...");
-				}
-				
-				//fechamento da conexao com o banco
-				con.fecharConexao();	
-				//Criação da string json que irá conter a mensagem de resposta
-				String json = new Gson().toJson(msg);
-				
-				response.setContentType("application/json");
-				response.setCharacterEncoding("UTF-8");
-				response.getWriter().write(json);
+			
+			//Se não tiver dado problema até aqui...
+			}else {
+				//Atualização da msg dizendo que deu merda
+				msg.put("msg","Deu caca na hora de buscar nossos registros. Lamentamos pelo inconveniente");
 			}
+		
+			/*
+			 * 	Checa se os processos do JDBC foram de boas ou falharam. Se estiver true,
+			 * 	tudo ocorreu bem, e se estiver falso, deu merda em algum ponto
+			 */
+			if(retorno) {
+				msg.put("msg","Sua pontuação foi atualizada!");
+			}else {
+				msg.put("msg", "Não atualizou a pontuação não fion...");
+			}
+			
+			//fechamento da conexao com o banco
+			con.fecharConexao();	
+			//Criação da string json que irá conter a mensagem de resposta
+			String json = new Gson().toJson(msg);
+			
+			response.setContentType("application/json");
+			response.setCharacterEncoding("UTF-8");
+			response.getWriter().write(json);
 			
 		}catch(IOException e) {
 			e.printStackTrace();
